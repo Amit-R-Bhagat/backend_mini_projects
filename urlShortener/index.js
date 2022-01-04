@@ -1,16 +1,18 @@
-const { urlencoded } = require("express");
 const express = require("express");
+const mongoose = require("mongoose");
 const validUrl = require("valid-url");
 const shortid = require("shortid");
-const Url = require("./models/url");
-// console.log(Url);
-
-require("dotenv").config();
+const Url = require("./url");
 const app = express();
 
-//middlewares
+//connect to db.
+mongoose.connect("mongodb://127.0.0.1:27017/urlshortener", () => {
+  console.log("DB connected");
+});
+
+app.use(express.static("public"));
 app.use(express.json());
-app.use(urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
   res.send("success");
@@ -18,48 +20,45 @@ app.get("/", (req, res) => {
 
 app.post("/shorten", async (req, res) => {
   try {
-    const { long_url, short } = req.body;
-
+    const long_url = req.body.long_url;
     if (!validUrl.isUri(long_url)) {
-      res.json({
-        status: "failure",
-        msg: "Please enter a valid url",
-      });
-      return;
+      return next(new Error("invalid Url"));
     }
 
-    // const count = await Url.count({
-    //     where: {
-    //         short_url: short
-    //     }
-    // })
+    let exists = await Url.exists({ long_url });
 
-    //genereate short_url
-    let short_url = shortid.generate();
+    let url;
+    if (exists) {
+      url = await Url.findOne({ long_url });
+    } else {
+      let short_url = shortid.generate();
 
-    //storing thre urls in db
-    const result = new Url({
-      long_url,
-      short_url,
-    });
-
-    if (!result) {
-      res.json({
-        status: "failure",
-        msg: "Could not create shortened url",
+      url = await Url.create({
+        long_url,
+        short_url,
       });
-      return;
     }
 
-    res.send({
-      status: "success",
-      msg: `${req.headers.host}/${short_url}`,
+    res.status(200).json({
+      long_url: url.long_url,
+      short_url: req.protocol + "://" + req.get("host") + "/" + url.short_url,
     });
   } catch (err) {
     console.log(err);
   }
 });
 
-app.listen(process.env.PORT, () =>
-  console.log(`Server started on port ${process.env.PORT}`)
-);
+app.get("/:short_url", async (req, res, next) => {
+  try {
+    let url = await Url.findOne({ short_url: req.params.short_url });
+
+    if (!url) {
+      return next(new Error("Invalid url"));
+    }
+    res.redirect(url.long_url);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.listen(3000, () => console.log("Server started on port 3000"));
