@@ -1,0 +1,27 @@
+Email 
+Branch 
+Select Previous OE-II 
+Registration No. 
+Name of Student 
+Mobile No. 
+SGPA (4th Sem. BE): 
+CV2381 OE-IV : Elements of Earthquake Engineering 
+CV2382 OE-IV : Introduction to Finite Element Method 
+CV2383 OE-IV : Air Pollution and Solid Waste Management 
+ME2392 OE IV : Reliability Engineering 
+ME2393 OE IV : Power Generation Engineering 
+ME2394  OE IV : Project Evaluation & Management 
+EL2381  OEIV: Electrical Energy Audit and Safety 
+EL2382  OEIV: Utilization of Electrical Energy 
+EL2383  OEIV: Power System Engineering 
+EE2391  OE IV : Data Acquisition & Signal Conditioning  
+EE2392  OE IV :  Microprocessor  Programming 
+ET2396  OE IV : Soft computing 
+ET2397  OE IV : Industrial Instrumentation 
+ET2398  OE IV : Medical Electronics 
+ET2400  OE IV : PLCs &   SCADA 
+GE2366 OE-IV: Probability Theory and Statistical Inference 
+GE2370 OE-IV: Introduction to French Language 
+GE2371 OE-IV:  Green Chemistry and Sustainability 
+GE2372 OE-IV:  Introduction to Japanese Language 
+GE2373 OE IV: Innovation & Entrepreneurship   
