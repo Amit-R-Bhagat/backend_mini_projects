@@ -3,7 +3,7 @@ const rp = require("request-promise");
 const cheerio = require("cheerio");
 const puppeteer = require("puppeteer");
 const url =
-  "https://docs.google.com/forms/d/e/1FAIpQLSeHfXr-SAgfRSGIXC7WN_KyD8afGDUeR6xWKm65orp-NXljsw/viewform";
+  "https://docs.google.com/forms/d/e/1FAIpQLSe63PQU8t0O7dllpbKQFQBgmxO2oEGiX4PhpFiw_NRr7cdoHA/viewform";
 // https://www.reddit.com/
 // https://archivepmo.nic.in/
 
@@ -22,7 +22,7 @@ const url =
     $(".freebirdFormviewerComponentsQuestionBaseTitle").each(function () {
       let data = $(this).text();
       console.log(data);
-      fs.unlinkSync("data.txt");
+      // fs.unlinkSync("data.txt");
       fs.appendFileSync("data.txt", `${data.replace("*", "")}\n`);
     });
   } catch (err) {
