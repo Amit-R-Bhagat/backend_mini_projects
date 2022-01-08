@@ -1,0 +1,31 @@
+openapi: "3.0.0"
+info:
+  title: learning swagger
+  description: api docs for myapp
+  version: 1.0.0
+  contact:
+    email: amitbhagat963@gmail.com
+
+servers:
+  - url: "{protocol}://localhost:3000/api/{version}"
+    description: for localhost
+    variables:
+      version:
+        enum:
+          - v1
+          - v2
+      protocol:
+        enum:
+          - http
+          - https
+
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: token
+
+    BearerAuth:
+      type: http
+      scheme: bearer
